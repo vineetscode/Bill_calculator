@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-200: #bbf7d0;
+  --color-brand-300: #86efac;
+  --color-brand-400: #4ade80;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-brand-700: #15803d;
+  --color-brand-800: #166534;
+  --color-brand-900: #14532d;
+  
+  --color-electric-500: #0ea5e9;
+  --color-electric-600: #0284c7;
+  --color-gas-500: #f97316;
+  --color-gas-600: #ea580c;
+  --color-water-500: #3b82f6;
+  --color-water-600: #2563eb;
+}
+
+/* Base custom styles */
+:root {
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  scroll-behavior: smooth;
+}
+
+/* Glassmorphism card styles */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dark .glass-panel {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5);
+}
+
+/* Premium micro-interactions & animations */
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.95; }
+}
+
+.pulse-hover:hover {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom range slider appearance */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
+}
+
+.dark input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #374151;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px; /* center it on the track */
+  background-color: currentColor;
+  height: 24px;
+  width: 24px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: transform 0.1s ease, background-color 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(0.95);
+}
+
+/* Mozilla Firefox sliders */
+input[type="range"]::-moz-range-track {
+  height: 10px;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
+}
+
+.dark input[type="range"]::-moz-range-track {
+  background-color: #374151;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  background-color: currentColor;
+  height: 24px;
+  width: 24px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: transform 0.1s ease, background-color 0.15s ease;
+}
+
+/* OCR Laser Sweep animation */
+@keyframes ocr-laser {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(140px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-ocr-laser {
+  animation: ocr-laser 2s infinite ease-in-out;
+}
+
+/* PDF Invoice Print styling */
+@media print {
+  body {
+    background-color: white !important;
+    color: #111827 !important;
+    font-size: 11pt;
+  }
+  
+  header, 
+  footer, 
+  form, 
+  select,
+  button,
+  .print\:hidden,
+  input[type="range"],
+  .relative.w-full.bg-gray-100 {
+    display: none !important;
+  }
+
+  main {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+  }
+
+  section {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .grid {
+    display: block !important;
+  }
+
+  .p-6, .p-5, .p-4 {
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* Keep summaries and breakdowns looking neat */
+  .border-b, .border-t {
+    border-color: #e5e7eb !important;
+  }
+}
