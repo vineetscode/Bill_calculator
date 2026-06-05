@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://flowtix-smart-bill-calculator.netlify.app/sitemap.xml
