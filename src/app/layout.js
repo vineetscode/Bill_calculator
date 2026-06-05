@@ -1,9 +1,27 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Flowtix - Smart Utility & Bill Estimator",
-  description: "Calculate and estimate your monthly household utility costs. Compare electricity, natural gas, and water usage in your state with our smart bill estimator.",
-  metadataBase: new URL("https://flowtix.com")
+  title: "Flowtix Smart Bill Calculator",
+  description:
+    "Free online utility and bill calculator. Estimate electricity, water, and gas costs and compare monthly household expenses.",
+  metadataBase: new URL(
+    "https://flowtix-smart-bill-calculator.netlify.app"
+  ),
+
+  openGraph: {
+    title: "Flowtix Smart Bill Calculator",
+    description:
+      "Estimate electricity, water, and gas costs with Flowtix Smart Bill Calculator.",
+    url: "https://flowtix-smart-bill-calculator.netlify.app",
+    siteName: "Flowtix",
+    locale: "en_US",
+    type: "website",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }) {
