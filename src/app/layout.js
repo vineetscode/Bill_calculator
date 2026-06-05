@@ -30,7 +30,19 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="theme-color" content="#10b981" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-8451288986881953"
+        />
+
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8451288986881953"
+          crossOrigin="anonymous"
+        ></script>
       </head>
+
       <body className="antialiased">
         {children}
       </body>
