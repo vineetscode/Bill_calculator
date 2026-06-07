@@ -129,14 +129,14 @@ export default function ElectricCalc({
         {/* Square Footage Input */}
         <div className="p-4 rounded-xl bg-gray-50/50 dark:bg-gray-800/35 border border-gray-100 dark:border-gray-800/60">
           <div className="flex justify-between items-center mb-2">
-            <label htmlFor="sqFt-range" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+            <label id="sqFt-label" htmlFor="sqFt-number" className="text-base font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
               <Home className="w-4 h-4 text-sky-500" />
               Home Size (Sq Ft)
             </label>
             <input suppressHydrationWarning={true}
               id="sqFt-number"
               type="number"
-              aria-label="Home square footage"
+              aria-label="Home square footage text input"
               value={sqFt}
               min="500"
               max="5000"
@@ -148,6 +148,7 @@ export default function ElectricCalc({
           <input suppressHydrationWarning={true}
             id="sqFt-range"
             type="range"
+            aria-labelledby="sqFt-label"
             min="500"
             max="5000"
             step="100"
@@ -440,7 +441,7 @@ export default function ElectricCalc({
               <div>
                 <span className="text-xs uppercase font-bold text-gray-400 block mb-1">Shift Savings</span>
                 {touSavings > 0 ? (
-                  <span className="font-extrabold text-emerald-500 flex items-center justify-center gap-0.5">
+                  <span className="font-extrabold text-emerald-600 dark:text-emerald-400 flex items-center justify-center gap-0.5">
                     <TrendingDown className="w-3.5 h-3.5" />
                     +${touSavings.toFixed(2)}
                   </span>

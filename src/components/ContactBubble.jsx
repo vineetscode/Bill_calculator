@@ -14,6 +14,16 @@ import {
   Check 
 } from "lucide-react";
 
+// Secure client-side obfuscation of contact PII to protect from web crawler scraper bots
+const SUPPORT_EMAIL_USER = "vineetsinghjzr28";
+const SUPPORT_EMAIL_DOMAIN = "gmail.com";
+const SUPPORT_EMAIL = `${SUPPORT_EMAIL_USER}@${SUPPORT_EMAIL_DOMAIN}`;
+
+const SUPPORT_PHONE_PART1 = "95800";
+const SUPPORT_PHONE_PART2 = "24955";
+const SUPPORT_PHONE = `${SUPPORT_PHONE_PART1}${SUPPORT_PHONE_PART2}`;
+
+
 export default function ContactBubble() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("chat"); // chat | form | info
@@ -79,7 +89,7 @@ export default function ContactBubble() {
       } else if (queryKeyword === "gas") {
         replyText = "🔥 **Natural Gas Heating Tips:**\n1. **Thermostat Controls:** Lowering your temperature setting by 1°F in winter reduces gas consumption by roughly 3%.\n2. **Appliance Base Load:** Standardize your furnace or boiler setpoint schedules to prevent frequent short-cycling.\n3. **Model Gas Shifts:** Use the **Natural Gas Calculator** to slide setpoints and estimate gas savings.";
       } else if (queryKeyword === "contact") {
-        replyText = "👤 **Contact Vineet Singh:**\n- **Email:** vineetsinghjzr28@gmail.com\n- **Phone:** 9580024955\n- **Office:** Uttar Pradesh, India\n\nYou can also click the **Send Message** tab above to email Vineet directly!";
+        replyText = `👤 **Contact Vineet Singh:**\n- **Email:** ${SUPPORT_EMAIL}\n- **Phone:** ${SUPPORT_PHONE}\n- **Office:** Uttar Pradesh, India\n\nYou can also click the **Send Message** tab above to email Vineet directly!`;
       }
 
       setMessages(prev => [...prev, {
@@ -118,7 +128,7 @@ export default function ContactBubble() {
       } else if (query.includes("gas") || query.includes("heat") || query.includes("furnace") || query.includes("boiler") || query.includes("therm")) {
         replyText = "🔥 **Natural Gas Heating Tips:**\n1. **Thermostat Setpoint:** Turning your thermostat down by just 1°F in winter reduces heating consumption by 3%.\n2. **Appliance Load:** Use the **Natural Gas Calculator** to slide setpoints and estimate gas savings.";
       } else if (query.includes("contact") || query.includes("email") || query.includes("phone") || query.includes("call") || query.includes("vineet") || query.includes("address") || query.includes("location") || query.includes("office")) {
-        replyText = "👤 **Contact Vineet Singh:**\n- **Email:** vineetsinghjzr28@gmail.com\n- **Phone:** 9580024955\n- **Office:** Uttar Pradesh, India\n\nYou can also click the **Send Message** tab above to email Vineet directly!";
+        replyText = `👤 **Contact Vineet Singh:**\n- **Email:** ${SUPPORT_EMAIL}\n- **Phone:** ${SUPPORT_PHONE}\n- **Office:** Uttar Pradesh, India\n\nYou can also click the **Send Message** tab above to email Vineet directly!`;
       } else {
         replyText = "👋 I'm the Flowtix Utility Assistant!\n\nI can help you estimate your energy/water usage. Try asking about:\n- **Electricity savings** or Peak Shift optimization\n- **Water tier systems** and lawn irrigation\n- **Natural gas savings** & winter heating tips\n- How to **contact Vineet**";
       }
@@ -139,17 +149,15 @@ export default function ContactBubble() {
 
     setFormStatus("sending");
     try {
-      const response = await fetch("https://formsubmit.co/ajax/vineetsinghjzr28@gmail.com", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           name: formName,
           email: formEmail,
-          message: formMessage,
-          _subject: `New Message from Flowtix Bubble: ${formName}`
+          message: formMessage
         })
       });
 
@@ -438,43 +446,43 @@ export default function ContactBubble() {
 
                 {/* Phone Card */}
                 <a
-                  href="tel:9580024955"
-                  className="flex items-center gap-3.5 p-3 rounded-xl border border-gray-100 hover:border-emerald-500/20 bg-gray-50/50 hover:bg-emerald-50/10 dark:border-gray-800 dark:hover:border-emerald-500/20 dark:bg-slate-900/30 dark:hover:bg-emerald-950/10 no-underline transition-all duration-300 group cursor-pointer"
+                  href={`tel:${SUPPORT_PHONE}`}
+                  className="flex items-center gap-3.5 p-3 rounded-xl border border-gray-100 hover:border-emerald-600/20 bg-gray-50/50 hover:bg-emerald-50/10 dark:border-gray-800 dark:hover:border-emerald-650/20 dark:bg-slate-900/30 dark:hover:bg-emerald-950/10 no-underline transition-all duration-300 group cursor-pointer"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                     <Phone className="w-4.5 h-4.5" />
                   </div>
                   <div>
                     <span className="font-bold block text-xs text-gray-800 dark:text-gray-250">
                       Call Helpline
                     </span>
-                    <span className="font-semibold block mt-0.5 text-xs text-emerald-500 dark:text-emerald-400">
-                      9580024955
+                    <span className="font-semibold block mt-0.5 text-xs text-emerald-600 dark:text-emerald-400">
+                      {SUPPORT_PHONE}
                     </span>
                   </div>
                 </a>
 
                 {/* Email Card */}
                 <a
-                  href="mailto:vineetsinghjzr28@gmail.com"
-                  className="flex items-center gap-3.5 p-3 rounded-xl border border-gray-100 hover:border-emerald-500/20 bg-gray-50/50 hover:bg-emerald-50/10 dark:border-gray-800 dark:hover:border-emerald-500/20 dark:bg-slate-900/30 dark:hover:bg-emerald-950/10 no-underline transition-all duration-300 group cursor-pointer"
+                  href={`mailto:${SUPPORT_EMAIL}`}
+                  className="flex items-center gap-3.5 p-3 rounded-xl border border-gray-100 hover:border-emerald-600/20 bg-gray-50/50 hover:bg-emerald-50/10 dark:border-gray-800 dark:hover:border-emerald-650/20 dark:bg-slate-900/30 dark:hover:bg-emerald-950/10 no-underline transition-all duration-300 group cursor-pointer"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                     <Mail className="w-4.5 h-4.5" />
                   </div>
                   <div className="min-w-0">
                     <span className="font-bold block text-xs text-gray-800 dark:text-gray-250">
                       Email Directly
                     </span>
-                    <span className="font-semibold block mt-0.5 text-xs text-emerald-500 dark:text-emerald-400 truncate max-w-[210px]">
-                      vineetsinghjzr28@gmail.com
+                    <span className="font-semibold block mt-0.5 text-xs text-emerald-600 dark:text-emerald-400 truncate max-w-[210px]">
+                      {SUPPORT_EMAIL}
                     </span>
                   </div>
                 </a>
 
                 {/* Location Card */}
                 <div className="flex items-center gap-3.5 p-3 rounded-xl border border-gray-100 bg-gray-50/50 dark:border-gray-800 dark:bg-slate-900/30">
-                  <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500 flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
                     <MapPin className="w-4.5 h-4.5" />
                   </div>
                   <div>

@@ -348,7 +348,7 @@ export default function Home({ initialState = "CA", initialTab = "electric" }) {
       setWeatherData(null);
       setWeatherAlert(null);
       try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${capital.lat}&longitude=${capital.lon}&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto`;
+        const url = `/api/weather?lat=${capital.lat}&lon=${capital.lon}&state=${selectedState}`;
         const res = await fetch(url);
         if (res.ok) {
           const data = await res.json();
@@ -415,7 +415,26 @@ export default function Home({ initialState = "CA", initialTab = "electric" }) {
     const key = `flowtix_override_${selectedState}`;
     const saved = localStorage.getItem(key);
     if (saved) {
-      setLocalOverrides(JSON.parse(saved));
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed) {
+          setLocalOverrides({
+            electricityRate: parsed.electricityRate || "",
+            gasRate: parsed.gasRate || "",
+            waterRate: parsed.waterRate || "",
+            waterBaseFee: parsed.waterBaseFee || ""
+          });
+        }
+      } catch (err) {
+        console.warn("Corrupted local override storage detected, clearing overrides.", err);
+        localStorage.removeItem(key);
+        setLocalOverrides({
+          electricityRate: "",
+          gasRate: "",
+          waterRate: "",
+          waterBaseFee: ""
+        });
+      }
     } else {
       setLocalOverrides({
         electricityRate: "",
@@ -739,28 +758,28 @@ export default function Home({ initialState = "CA", initialTab = "electric" }) {
     const ratio = totalCost / (avgTotalCost || 1);
     
     let grade = "B";
-    let color = "text-sky-500 dark:text-sky-400";
+    let color = "text-sky-650 dark:text-sky-400";
     let bg = "bg-sky-500/15";
     let desc = "Average usage. You're in line with regional baseline standards.";
 
     if (ratio < 0.75) {
       grade = "A";
-      color = "text-emerald-500 dark:text-emerald-450";
+      color = "text-emerald-600 dark:text-emerald-400";
       bg = "bg-emerald-500/15";
       desc = "Eco-Champion! Your home consumes far less than state benchmarks.";
     } else if (ratio < 1.05) {
       grade = "B";
-      color = "text-sky-500 dark:text-sky-405";
+      color = "text-sky-650 dark:text-sky-400";
       bg = "bg-sky-500/15";
       desc = "Good. Your utilities are optimized near typical values.";
     } else if (ratio < 1.30) {
       grade = "C";
-      color = "text-amber-500 dark:text-amber-450";
+      color = "text-amber-600 dark:text-amber-400";
       bg = "bg-amber-500/15";
       desc = "Moderate consumption. There are simple steps to trim your bills.";
     } else {
       grade = "D";
-      color = "text-rose-500 dark:text-rose-455";
+      color = "text-rose-650 dark:text-rose-400";
       bg = "bg-rose-500/15";
       desc = "High usage! Check the energy-saving action checklist to cut costs.";
     }
@@ -1328,7 +1347,7 @@ export default function Home({ initialState = "CA", initialTab = "electric" }) {
                     </span>
                   </div>
                   <div className="text-right print:hidden shrink-0">
-                    <span className="text-xs text-emerald-555 dark:text-emerald-400 font-extrabold uppercase bg-emerald-50 dark:bg-emerald-950/20 px-2 py-0.5 rounded">
+                    <span className="text-xs text-emerald-650 dark:text-emerald-400 font-extrabold uppercase bg-emerald-50 dark:bg-emerald-950/20 px-2 py-0.5 rounded">
                       Gamified Plan
                     </span>
                   </div>
@@ -1904,11 +1923,19 @@ export default function Home({ initialState = "CA", initialTab = "electric" }) {
                     return (
                       <tr
                         key={code}
+                        tabIndex={0}
                         onClick={() => {
                           setSelectedState(code);
                           setZipInput("");
                         }}
-                        className={`group hover:bg-gray-50/70 dark:hover:bg-gray-800/40 cursor-pointer transition-colors ${
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setSelectedState(code);
+                            setZipInput("");
+                          }
+                        }}
+                        className={`group hover:bg-gray-50/70 dark:hover:bg-gray-800/40 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-colors ${
                           isCurrent ? "bg-emerald-50/30 dark:bg-emerald-950/10" : ""
                         }`}
                       >
