@@ -1,7 +1,15 @@
+import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ContactBubble from "../components/ContactBubble";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 export const metadata = {
   title: "Flowtix Smart Bill Calculator",
@@ -29,21 +37,24 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable}`} suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#10b981" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://open-meteo.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
 
         <meta
           name="google-adsense-account"
           content="ca-pub-8451288986881953"
         />
 
-        <script
-          async
+        <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8451288986881953"
+          strategy="lazyOnload"
           crossOrigin="anonymous"
-        ></script>
+        />
       </head>
 
       <body className="antialiased min-h-screen bg-[#f8fafc] dark:bg-[#0b0f19] text-gray-800 dark:text-gray-100 flex flex-col transition-colors duration-300" suppressHydrationWarning>

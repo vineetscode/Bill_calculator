@@ -864,6 +864,7 @@ export default function Home({ initialState = "CA", initialTab = "electric" }) {
         selectedStateCode={selectedState} 
         selectedStateName={activeRates.name} 
         estimatedSavings={savingsPotential.total} 
+        monthlyCost={totalCost}
       />
 
       {/* Cinematic Hero Section - Covers full screen width & height */}
@@ -1497,75 +1498,76 @@ export default function Home({ initialState = "CA", initialTab = "electric" }) {
                       </div>
                     </label>
                   )}
-
                 </div>
               </div>
 
               {/* Local Weather Accordion Card */}
-              {(weatherLoading || weatherData) && (
-                <div className="rounded-3xl bg-white dark:bg-gray-900 border border-gray-200/60 dark:border-gray-800/80 shadow-md overflow-hidden print:hidden">
-                  <button suppressHydrationWarning={true}
-                    type="button"
-                    onClick={() => setWeatherCollapsed(!weatherCollapsed)}
-                    className="w-full px-5 py-4 flex justify-between items-center text-left text-xs font-bold text-gray-550 dark:text-gray-400 uppercase tracking-widest hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer"
-                  >
-                    <span className="flex items-center gap-2 text-xs font-extrabold uppercase">
-                      <Sun className="w-4 h-4 text-amber-500 fill-current shrink-0" />
-                      Local Weather Alert Forecast
-                    </span>
-                    <div className="flex items-center gap-2 font-sans font-extrabold text-xs shrink-0">
-                      {weatherData && (
-                        <span className="text-gray-600 dark:text-gray-300">
-                          {weatherData.maxTemp.toFixed(0)}°F / {weatherData.minTemp.toFixed(0)}°F
-                        </span>
-                      )}
-                      <ChevronDown className={`w-4 h-4 transform transition-transform duration-200 ${weatherCollapsed ? "" : "rotate-180"}`} />
-                    </div>
-                  </button>
+              <div className="rounded-3xl bg-white dark:bg-gray-900 border border-gray-200/60 dark:border-gray-800/80 shadow-md overflow-hidden print:hidden">
+                <button suppressHydrationWarning={true}
+                  type="button"
+                  onClick={() => setWeatherCollapsed(!weatherCollapsed)}
+                  className="w-full px-5 py-4 flex justify-between items-center text-left text-xs font-bold text-gray-550 dark:text-gray-400 uppercase tracking-widest hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer"
+                >
+                  <span className="flex items-center gap-2 text-xs font-extrabold uppercase">
+                    <Sun className="w-4 h-4 text-amber-500 fill-current shrink-0" />
+                    Local Weather Alert Forecast
+                  </span>
+                  <div className="flex items-center gap-2 font-sans font-extrabold text-xs shrink-0">
+                    {weatherData ? (
+                      <span className="text-gray-600 dark:text-gray-300">
+                        {weatherData.maxTemp.toFixed(0)}°F / {weatherData.minTemp.toFixed(0)}°F
+                      </span>
+                    ) : (
+                      <span className="text-gray-400 dark:text-gray-500 animate-pulse font-medium">
+                        Loading...
+                      </span>
+                    )}
+                    <ChevronDown className={`w-4 h-4 transform transition-transform duration-200 ${weatherCollapsed ? "" : "rotate-180"}`} />
+                  </div>
+                </button>
 
-                  {!weatherCollapsed && (
-                    <div className="px-5 pb-5 pt-1.5 border-t border-gray-100 dark:border-gray-800/60 animate-fade-in space-y-4">
-                      {weatherLoading ? (
-                        <div className="text-center py-4 text-xs font-bold text-gray-400 animate-pulse">
-                          Fetching Open-Meteo local forecast...
+                {!weatherCollapsed && (
+                  <div className="px-5 pb-5 pt-1.5 border-t border-gray-100 dark:border-gray-800/60 animate-fade-in space-y-4">
+                    {weatherLoading || !weatherData ? (
+                      <div className="text-center py-4 text-xs font-bold text-gray-400 animate-pulse">
+                        Fetching Open-Meteo local forecast...
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center text-xs font-sans text-gray-500">
+                          <span>Station Location: <strong className="text-gray-700 dark:text-gray-300">{weatherData.capitalName}</strong></span>
                         </div>
-                      ) : weatherData ? (
-                        <div className="space-y-4">
-                          <div className="flex justify-between items-center text-xs font-sans text-gray-500">
-                            <span>Station Location: <strong className="text-gray-700 dark:text-gray-300">{weatherData.capitalName}</strong></span>
+                        
+                        {weatherAlert && (
+                          <div className={`p-3.5 rounded-2xl border flex gap-2.5 text-xs font-bold leading-relaxed ${
+                            weatherAlert.type === "warning"
+                              ? "bg-rose-500/10 border-rose-500/20 text-rose-600 dark:text-rose-400"
+                              : weatherAlert.type === "caution"
+                              ? "bg-sky-500/10 border-sky-500/20 text-sky-600 dark:text-sky-405"
+                              : "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                          }`}>
+                            <ShieldAlert className="w-4.5 h-4.5 shrink-0 mt-0.5" />
+                            <p>{weatherAlert.message}</p>
                           </div>
-                          
-                          {weatherAlert && (
-                            <div className={`p-3.5 rounded-2xl border flex gap-2.5 text-xs font-bold leading-relaxed ${
-                              weatherAlert.type === "warning"
-                                ? "bg-rose-500/10 border-rose-500/20 text-rose-600 dark:text-rose-400"
-                                : weatherAlert.type === "caution"
-                                ? "bg-sky-500/10 border-sky-500/20 text-sky-600 dark:text-sky-405"
-                                : "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
-                            }`}>
-                              <ShieldAlert className="w-4.5 h-4.5 shrink-0 mt-0.5" />
-                              <p>{weatherAlert.message}</p>
-                            </div>
-                          )}
+                        )}
 
-                          <div className="grid grid-cols-5 gap-2 text-center text-xs font-sans">
-                            {weatherData.forecastMax.map((temp, idx) => {
-                              const date = new Date(weatherData.dates[idx]);
-                              const dayLabel = date.toLocaleDateString("en-US", { weekday: "short" });
-                              return (
-                                <div key={idx} className="p-2 rounded-xl bg-gray-50/50 dark:bg-gray-950/20 border border-gray-100 dark:border-gray-800">
-                                  <span className="block font-bold text-gray-400 dark:text-gray-500 mb-0.5">{dayLabel}</span>
-                                  <span className="block font-extrabold text-gray-700 dark:text-gray-200">{temp.toFixed(0)}°</span>
-                                </div>
-                              );
-                            })}
-                          </div>
+                        <div className="grid grid-cols-5 gap-2 text-center text-xs font-sans">
+                          {weatherData.forecastMax.map((temp, idx) => {
+                            const date = new Date(weatherData.dates[idx]);
+                            const dayLabel = date.toLocaleDateString("en-US", { weekday: "short" });
+                            return (
+                              <div key={idx} className="p-2 rounded-xl bg-gray-50/50 dark:bg-gray-950/20 border border-gray-100 dark:border-gray-805">
+                                <span className="block font-bold text-gray-400 dark:text-gray-505 mb-0.5">{dayLabel}</span>
+                                <span className="block font-extrabold text-gray-700 dark:text-gray-200">{temp.toFixed(0)}°</span>
+                              </div>
+                            );
+                          })}
                         </div>
-                      ) : null}
-                    </div>
-                  )}
-                </div>
-              )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
 
               {/* Bill OCR Scanner Accordion Card */}
               <div className="rounded-3xl bg-white dark:bg-gray-900 border border-gray-200/60 dark:border-gray-800/80 shadow-md overflow-hidden print:hidden">
