@@ -6,11 +6,27 @@ Flowtix is a premium, client-side utility projection platform designed to help h
 
 ## 🚀 Key Features
 
-### 1. Unified Dark Mode Dashboard
-* A modern, high-contrast, locked dark mode interface built for visual excellence.
-* harmonious color gradients, micro-animations, and styled layouts for a professional dashboard feel.
+### 1. Premium Cinematic Hero & Design Aesthetics
+* **Full-Width Viewport Backdrop**: Animated dark-mode friendly gradient mesh backdrop (`cinematic-glow` & `gradient-shift` keyframes) covering the full width of the screen, creating a grand, modern cinematic entry block.
+* **Glassmorphism Elements**: ZIP/State lookup panels styled with sleek translucent cards (`backdrop-blur-md bg-white/40 dark:bg-slate-900/40 border-white/20`).
+* **Inter Typography**: Global typography upgraded to the **Inter** font family to maximize legibility and professional aesthetic appeal.
+* **Translucent Selection Highlight**: Screen text selection customized to a modern, translucent emerald green (`rgba(34, 197, 94, 0.25)`).
+* **Responsive Layouts & Scales**: Interactive dashboard elements scale and lift smoothly on hover. All small texts upgraded to a minimum size of `text-xs` (12px) to guarantee excellent accessibility.
 
-### 2. Multi-Calculator Suite
+### 2. Multi-Tab Contact Bubble & Integrated Chatbot
+* **Interactive Chatbot Tab (Active by Default)**: Simulated support bot that replies instantly to queries regarding utility bill optimizations, water pricing tiers, and heating saving formulas. Includes quick-reply chip suggestions ("💡 Save Electricity", "💧 Water Tier Rates", etc.) and custom prompt inputs.
+* **Embedded Message Form Tab**: Users can submit custom messages using an integrated form (Name, Email, Message) directly inside the popover window. Message submissions are handled dynamically via AJAX (`POST` requests to FormSubmit.co forwarded to `vineetsinghjzr28@gmail.com`) to eliminate distracting page redirects.
+* **Quick Info Tab**: Displays personal contact cards (Helpline phone: `9580024955`, Email: `vineetsinghjzr28@gmail.com`, Location: `Uttar Pradesh, India`).
+* **Micro-Animations**: Floating contact bubble animated with a looping bouncing effect (`bubble-float`) and smooth state icons toggle (`MessageSquare` and `X`).
+
+### 3. Unified Dark Mode Dashboard
+* A modern, high-contrast, locked dark mode interface built for visual excellence.
+* Harmonious color gradients, micro-animations, and styled layouts for a professional dashboard feel.
+
+### 4. Brand Favicon Alignment
+* Replaced default metadata icons with a custom SVG brand favicon (`public/favicon.svg`) matching Flowtix's emerald leaf logo, keeping the browser tab perfectly synced with the site branding.
+
+### 5. Multi-Calculator Suite
 * **Electricity Calculator**: Models baseline square-footage draws alongside high-load expansion appliances:
   * *Work-From-Home (WFH)* laptop and monitor consumption.
   * *Vampire standby load* from modern household socket draws.
@@ -18,38 +34,9 @@ Flowtix is a premium, client-side utility projection platform designed to help h
 * **Natural Gas Calculator**: Estimates gas therms using furnace, boiler, or water heater base draws, scaled by thermostat setpoint modifiers.
 * **Water Calculator**: Models indoor baseline usage, shower averages, and lawn irrigation frequencies, with tiered water rate billing simulations.
 
-### 3. Hyper-Local Utility Rates & Providers
-* Integrated base utility rates for all 50 U.S. states.
-* Interactive provider selector with preloaded exact rates for regional companies:
-  * **California**: PG&E, SCE, SDG&E
-  * **New York**: ConEd, PSEG Long Island, NYSEG
-  * **Texas**: Oncor, CenterPoint, TXU
-  * **Florida**: FPL, Duke Energy, TECO
-  * **Standard State Averages** automatically generated for other states.
+### 6. Interactive Dropdown Navigation
+* Converted the main navbar "Comparison Tools" tab into a responsive hover-triggered dropdown menu (desktop) and accordion lists (mobile), enabling fast access to each of the 6 utility calculators directly.
 
-### 4. Time-of-Use (TOU) Tariff Simulator
-* Simulates peak-hour (4 PM - 9 PM at 1.8x base rate) vs. off-peak hours (0.8x base rate).
-* **Peak-Shift Optimizer**: Lets users toggle appliance shift schedules to immediately calculate shift savings when peak usage is reduced to 10%.
-
-### 5. Weather API Alerts (Open-Meteo)
-* Integrates client-side temperature calls using capital coordinates for the active state.
-* Renders a 5-day temperature outlook and raises proactive billing warning alerts if heatwaves (>85°F) or freezes (<40°F) threaten to increase HVAC consumption.
-
-### 6. Neighbor Eco-Score Gauge
-* Custom SVG needle meter comparing the household's total bill against state composites (adjusted for area and occupant size).
-* Awards graded Eco-Scores (A, B, C, D) with descriptive consumption profiles.
-
-### 7. OCR Bill Scanner (Tesseract.js)
-* Client-side OCR file loader that extracts rates and ZIP codes from uploaded photos of utility statements.
-* safe dynamic CDN loader (`cdn.jsdelivr.net`) to prevent Server-Side Rendering (SSR) bundle bloat.
-* Includes **Demo PG&E** and **Demo ConEd** presets to instantly show scanning functionality without a real document.
-
-### 8. Multi-Channel Share Popup
-* Opens the native system share sheet on mobile devices.
-* Falls back to a clean overlay popover on desktop with pre-configured sharing handlers for **WhatsApp**, **Twitter (X)**, **Email**, and **Copy Link** containing state parameters.
-
-### 9. PDF Report Export
-* Custom print layout rule overrides (`@media print`) that strip interactive controls (sliders, buttons, scanners) to format a professional, clean single-page invoice report.
 
 ---
 

@@ -39,7 +39,7 @@ export default function GasCalc({
           {heatingOptions.map((option) => {
             const isSelected = heatingType === option.id;
             return (
-              <button
+              <button suppressHydrationWarning={true}
                 key={option.id}
                 type="button"
                 onClick={() => handleInputChange("heatingType", option.id)}
@@ -87,7 +87,7 @@ export default function GasCalc({
           Industry standard is 68°F. Every degree offset changes gas heating consumption by ~6%.
         </p>
         
-        <input
+        <input suppressHydrationWarning={true}
           id="thermostat-range"
           type="range"
           min="60"

@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   
   --color-brand-50: #f0fdf4;
   --color-brand-100: #dcfce7;
@@ -21,6 +21,16 @@
   --color-gas-600: #ea580c;
   --color-water-500: #3b82f6;
   --color-water-600: #2563eb;
+}
+
+/* Custom selection styling */
+::selection {
+  background-color: rgba(34, 197, 94, 0.25) !important;
+  color: inherit !important;
+}
+::-moz-selection {
+  background-color: rgba(34, 197, 94, 0.25) !important;
+  color: inherit !important;
 }
 
 /* Base custom styles */
@@ -148,6 +158,35 @@ input[type="range"]::-moz-range-thumb {
 
 .animate-ocr-laser {
   animation: ocr-laser 2s infinite ease-in-out;
+}
+
+/* Custom premium floating/bouncing animation */
+@keyframes bubble-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-bubble-float {
+  animation: bubble-float 3s ease-in-out infinite;
+}
+
+/* Cinematic background gradient shifts */
+@keyframes cinematic-glow {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+.animate-cinematic-glow {
+  animation: cinematic-glow 20s infinite ease-in-out;
+}
+
+@keyframes text-shine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-text-shine {
+  background-size: 200% auto;
+  animation: text-shine 6s linear infinite;
 }
 
 /* PDF Invoice Print styling */

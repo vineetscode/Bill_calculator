@@ -60,7 +60,7 @@ export default function WaterCalc({
           <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
             Affects daily baseline usage (averages ~50 gallons/person/day).
           </p>
-          <input
+          <input suppressHydrationWarning={true}
             id="members-range"
             type="range"
             min="1"
@@ -86,7 +86,7 @@ export default function WaterCalc({
           <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
             Standard showerheads run at ~2.1 gallons per minute (GPM).
           </p>
-          <input
+          <input suppressHydrationWarning={true}
             id="shower-range"
             type="range"
             min="5"
@@ -112,7 +112,7 @@ export default function WaterCalc({
           <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
             Irrigation draws high water volumes, averaging ~120 gallons per watering cycle.
           </p>
-          <input
+          <input suppressHydrationWarning={true}
             id="lawn-range"
             type="range"
             min="0"

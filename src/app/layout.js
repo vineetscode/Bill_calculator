@@ -1,4 +1,7 @@
 import "./globals.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import ContactBubble from "../components/ContactBubble";
 
 export const metadata = {
   title: "Flowtix Smart Bill Calculator",
@@ -26,7 +29,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#10b981" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -43,8 +46,13 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
 
-      <body className="antialiased">
-        {children}
+      <body className="antialiased min-h-screen bg-[#f8fafc] dark:bg-[#0b0f19] text-gray-800 dark:text-gray-100 flex flex-col transition-colors duration-300" suppressHydrationWarning>
+        <Header />
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
+        <ContactBubble />
       </body>
     </html>
   );

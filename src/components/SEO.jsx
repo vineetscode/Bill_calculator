@@ -96,22 +96,76 @@ export default function SEO({ activeTab, selectedStateCode, selectedStateName, m
       ]
     };
 
+    const orgSchema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Flowtix",
+      "alternateName": "Flowtix Smart Utility & Bill Estimator",
+      "url": window.location.origin,
+      "logo": `${window.location.origin}/favicon.svg`,
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-512-555-0198",
+        "contactType": "customer service",
+        "email": "support@flowtix.com"
+      }
+    };
+
+    const websiteSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Flowtix",
+      "url": window.location.origin
+    };
+
+    // Build breadcrumbs dynamically based on path segments
+    const pathSegments = window.location.pathname.split("/").filter(Boolean);
+    const itemListElement = [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": window.location.origin
+      }
+    ];
+    pathSegments.forEach((segment, index) => {
+      const href = window.location.origin + "/" + pathSegments.slice(0, index + 1).join("/");
+      const name = segment
+        .split("-")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+      itemListElement.push({
+        "@type": "ListItem",
+        "position": index + 2,
+        "name": name,
+        "item": href
+      });
+    });
+
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": itemListElement
+    };
+
     // Remove existing schemas
     const existingScripts = document.querySelectorAll("script[data-seo-schema]");
     existingScripts.forEach(script => script.remove());
 
     // Inject New Schemas
-    const scriptApp = document.createElement("script");
-    scriptApp.type = "application/ld+json";
-    scriptApp.setAttribute("data-seo-schema", "webapp");
-    scriptApp.text = JSON.stringify(webAppSchema);
-    document.head.appendChild(scriptApp);
+    const injectSchema = (id, data) => {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.setAttribute("data-seo-schema", id);
+      script.text = JSON.stringify(data);
+      document.head.appendChild(script);
+    };
 
-    const scriptFaq = document.createElement("script");
-    scriptFaq.type = "application/ld+json";
-    scriptFaq.setAttribute("data-seo-schema", "faq");
-    scriptFaq.text = JSON.stringify(faqSchema);
-    document.head.appendChild(scriptFaq);
+    injectSchema("webapp", webAppSchema);
+    injectSchema("faq", faqSchema);
+    injectSchema("org", orgSchema);
+    injectSchema("website", websiteSchema);
+    injectSchema("breadcrumb", breadcrumbSchema);
 
   }, [activeTab, selectedStateCode, selectedStateName, monthlyCost, estimatedSavings]);
 

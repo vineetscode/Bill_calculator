@@ -105,7 +105,7 @@ export default function ElectricCalc({
           Select Utility Provider (Hyper-Local Pricing)
         </label>
         <div className="relative">
-          <select
+          <select suppressHydrationWarning={true}
             id="provider-select"
             value={selectedProviderId}
             onChange={(e) => onProviderChange(e.target.value)}
@@ -133,7 +133,7 @@ export default function ElectricCalc({
               <Home className="w-4 h-4 text-sky-500" />
               Home Size (Sq Ft)
             </label>
-            <input
+            <input suppressHydrationWarning={true}
               id="sqFt-number"
               type="number"
               aria-label="Home square footage"
@@ -145,7 +145,7 @@ export default function ElectricCalc({
               className="w-24 px-2 py-1 text-right text-base font-bold bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg text-sky-600 dark:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
             />
           </div>
-          <input
+          <input suppressHydrationWarning={true}
             id="sqFt-range"
             type="range"
             min="500"
@@ -173,7 +173,7 @@ export default function ElectricCalc({
           </div>
           
           <div className="grid grid-cols-2 p-1.5 bg-gray-200 dark:bg-gray-900 rounded-xl relative">
-            <button
+            <button suppressHydrationWarning={true}
               type="button"
               onClick={() => handleInputChange("season", "summer")}
               className={`py-2 text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 z-10 cursor-pointer ${
@@ -185,7 +185,7 @@ export default function ElectricCalc({
               <Sun className="w-4 h-4" />
               Summer
             </button>
-            <button
+            <button suppressHydrationWarning={true}
               type="button"
               onClick={() => handleInputChange("season", "winter")}
               className={`py-2 text-sm font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 z-10 cursor-pointer ${
@@ -229,7 +229,7 @@ export default function ElectricCalc({
             <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
               Standard central unit draws ~3.0 kW (3,000 Watts).
             </p>
-            <input
+            <input suppressHydrationWarning={true}
               id="ac-range"
               type="range"
               min="0"
@@ -260,7 +260,7 @@ export default function ElectricCalc({
             <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
               Typical space heater draws ~1.5 kW (1,500 Watts).
             </p>
-            <input
+            <input suppressHydrationWarning={true}
               id="heater-range"
               type="range"
               min="0"
@@ -287,7 +287,7 @@ export default function ElectricCalc({
             <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
               Standard 240V Level 2 home charger draws ~7.2 kW.
             </p>
-            <input
+            <input suppressHydrationWarning={true}
               id="ev-range"
               type="range"
               min="0"
@@ -313,7 +313,7 @@ export default function ElectricCalc({
             <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
               Compressor runs intermittently, averaging ~0.15 kW draw.
             </p>
-            <input
+            <input suppressHydrationWarning={true}
               id="fridge-range"
               type="range"
               min="0"
@@ -339,7 +339,7 @@ export default function ElectricCalc({
             <p className="text-xs text-gray-400 dark:text-gray-500 mb-3">
               Average wash + dry cycle draws ~2.5 kW.
             </p>
-            <input
+            <input suppressHydrationWarning={true}
               id="washer-range"
               type="range"
               min="0"
@@ -364,7 +364,7 @@ export default function ElectricCalc({
             </h4>
           </div>
           <label className="relative inline-flex items-center cursor-pointer select-none">
-            <input
+            <input suppressHydrationWarning={true}
               type="checkbox"
               checked={touEnabled}
               onChange={(e) => handleInputChange("touEnabled", e.target.checked)}
@@ -393,7 +393,7 @@ export default function ElectricCalc({
                   {touOptimized ? "10% (Forced Opt)" : `${touPeakPct}%`}
                 </span>
               </div>
-              <input
+              <input suppressHydrationWarning={true}
                 type="range"
                 min="5"
                 max="80"
@@ -403,14 +403,14 @@ export default function ElectricCalc({
                 onChange={(e) => handleInputChange("touPeakPct", Number(e.target.value))}
                 className="w-full text-sky-500 cursor-pointer disabled:cursor-not-allowed"
               />
-              <span className="text-[10px] text-gray-500 dark:text-gray-400 block mt-1">
+              <span className="text-xs text-gray-500 dark:text-gray-400 block mt-1">
                 Typical homes consume ~30% during peak. EV charging and dishwashing shift this.
               </span>
             </div>
 
             {/* Peak Shift Optimizer Toggle */}
             <label htmlFor="tou-opt" className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-gray-900 border border-sky-100/40 dark:border-sky-950/40 cursor-pointer select-none">
-              <input
+              <input suppressHydrationWarning={true}
                 id="tou-opt"
                 type="checkbox"
                 checked={touOptimized}
@@ -421,7 +421,7 @@ export default function ElectricCalc({
                 <span className="font-bold text-gray-800 dark:text-gray-200 block">
                   Optimize Run Times (Shift EV, AC & Laundry to 11 PM)
                 </span>
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold block mt-0.5">
+                <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold block mt-0.5">
                   Shifts peak share down to 10% automatically.
                 </span>
               </div>
@@ -430,15 +430,15 @@ export default function ElectricCalc({
             {/* Cost Comparison mini-dashboard */}
             <div className="grid grid-cols-3 gap-2 text-center text-xs p-3 rounded-xl bg-sky-50/40 dark:bg-sky-950/20 border border-sky-100/50 dark:border-sky-950/20">
               <div>
-                <span className="text-[9px] uppercase font-bold text-gray-400 block mb-1">Standard Rate</span>
+                <span className="text-xs uppercase font-bold text-gray-400 block mb-1">Standard Rate</span>
                 <span className="font-bold text-gray-700 dark:text-gray-300">${standardCost.toFixed(2)}</span>
               </div>
               <div>
-                <span className="text-[9px] uppercase font-bold text-gray-400 block mb-1">TOU Program</span>
+                <span className="text-xs uppercase font-bold text-gray-400 block mb-1">TOU Program</span>
                 <span className="font-bold text-sky-600 dark:text-sky-400">${touCost.toFixed(2)}</span>
               </div>
               <div>
-                <span className="text-[9px] uppercase font-bold text-gray-400 block mb-1">Shift Savings</span>
+                <span className="text-xs uppercase font-bold text-gray-400 block mb-1">Shift Savings</span>
                 {touSavings > 0 ? (
                   <span className="font-extrabold text-emerald-500 flex items-center justify-center gap-0.5">
                     <TrendingDown className="w-3.5 h-3.5" />
@@ -453,7 +453,7 @@ export default function ElectricCalc({
             </div>
 
             {touSavings < 0 && (
-              <p className="text-[10px] text-amber-500 font-semibold leading-relaxed">
+              <p className="text-xs text-amber-500 font-semibold leading-relaxed">
                 ⚠️ Peak usage is too high! You are paying a surge rate during 4 PM - 9 PM. Turn on "Optimize Run Times" to shift load off-peak.
               </p>
             )}
@@ -469,10 +469,10 @@ export default function ElectricCalc({
 
         {/* Accordion 1: WFH Cost Estimator */}
         <div className="rounded-2xl border border-gray-200/60 dark:border-gray-800/80 overflow-hidden bg-white dark:bg-gray-900 shadow-sm">
-          <button
+          <button suppressHydrationWarning={true}
             type="button"
             onClick={() => toggleAccordion("wfh")}
-            className="w-full px-4 py-3.5 flex justify-between items-center text-sm font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors"
+            className="w-full px-4 py-3.5 flex justify-between items-center text-sm font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-850 transition-all duration-200 hover:pl-5 hover:text-sky-500"
           >
             <span className="flex items-center gap-2">
               <Laptop className="w-4 h-4 text-sky-500" />
@@ -494,7 +494,7 @@ export default function ElectricCalc({
                     <label htmlFor="wfhDays-range" className="text-xs font-semibold text-gray-600 dark:text-gray-350">WFH Days / Week</label>
                     <span className="text-xs font-bold text-sky-500 bg-sky-50 dark:bg-sky-950/20 px-2 py-0.5 rounded">{wfhDays} days</span>
                   </div>
-                  <input
+                  <input suppressHydrationWarning={true}
                     id="wfhDays-range"
                     type="range"
                     min="0"
@@ -512,7 +512,7 @@ export default function ElectricCalc({
                     <label htmlFor="wfhHours-range" className="text-xs font-semibold text-gray-600 dark:text-gray-350">Work Hours / Day</label>
                     <span className="text-xs font-bold text-sky-500 bg-sky-50 dark:bg-sky-950/20 px-2 py-0.5 rounded">{wfhHours} hrs</span>
                   </div>
-                  <input
+                  <input suppressHydrationWarning={true}
                     id="wfhHours-range"
                     type="range"
                     min="1"
@@ -530,7 +530,7 @@ export default function ElectricCalc({
                     <label htmlFor="wfhDevices-range" className="text-xs font-semibold text-gray-600 dark:text-gray-350">Active Workstation Devices</label>
                     <span className="text-xs font-bold text-sky-500 bg-sky-50 dark:bg-sky-950/20 px-2 py-0.5 rounded">{wfhDevices} devices</span>
                   </div>
-                  <input
+                  <input suppressHydrationWarning={true}
                     id="wfhDevices-range"
                     type="range"
                     min="1"
@@ -540,7 +540,7 @@ export default function ElectricCalc({
                     onChange={(e) => handleInputChange("wfhDevices", Number(e.target.value))}
                     className="w-full text-sky-500 cursor-pointer"
                   />
-                  <span className="text-[10px] text-gray-400 block mt-1">
+                  <span className="text-xs text-gray-400 block mt-1">
                     Calculates ~100 Watts draw per active laptop + display monitor setup.
                   </span>
                 </div>
@@ -551,10 +551,10 @@ export default function ElectricCalc({
 
         {/* Accordion 2: Vampire Energy Drain */}
         <div className="rounded-2xl border border-gray-200/60 dark:border-gray-800/80 overflow-hidden bg-white dark:bg-gray-900 shadow-sm">
-          <button
+          <button suppressHydrationWarning={true}
             type="button"
             onClick={() => toggleAccordion("vampire")}
-            className="w-full px-4 py-3.5 flex justify-between items-center text-sm font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors"
+            className="w-full px-4 py-3.5 flex justify-between items-center text-sm font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-850 transition-all duration-200 hover:pl-5 hover:text-sky-500"
           >
             <span className="flex items-center gap-2">
               <Tv className="w-4 h-4 text-sky-500" />
@@ -574,7 +574,7 @@ export default function ElectricCalc({
                   <label htmlFor="vampireCount-range" className="text-xs font-semibold text-gray-600 dark:text-gray-350">Number of Standby/Plugged Devices</label>
                   <span className="text-xs font-bold text-sky-500 bg-sky-50 dark:bg-sky-950/20 px-2 py-0.5 rounded">{vampireCount} devices</span>
                 </div>
-                <input
+                <input suppressHydrationWarning={true}
                   id="vampireCount-range"
                   type="range"
                   min="0"
@@ -584,7 +584,7 @@ export default function ElectricCalc({
                   onChange={(e) => handleInputChange("vampireCount", Number(e.target.value))}
                   className="w-full text-sky-500 cursor-pointer"
                 />
-                <span className="text-[10px] text-gray-400 block mt-1">
+                <span className="text-xs text-gray-400 block mt-1">
                   Assumes a baseline standby drain of ~5 Watts per active outlet connector, running 24/7.
                 </span>
               </div>
@@ -594,10 +594,10 @@ export default function ElectricCalc({
 
         {/* Accordion 3: Pool & Hot Tub Calculator */}
         <div className="rounded-2xl border border-gray-200/60 dark:border-gray-800/80 overflow-hidden bg-white dark:bg-gray-900 shadow-sm">
-          <button
+          <button suppressHydrationWarning={true}
             type="button"
             onClick={() => toggleAccordion("pool")}
-            className="w-full px-4 py-3.5 flex justify-between items-center text-sm font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors"
+            className="w-full px-4 py-3.5 flex justify-between items-center text-sm font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-850 transition-all duration-200 hover:pl-5 hover:text-sky-500"
           >
             <span className="flex items-center gap-2">
               <Waves className="w-4 h-4 text-sky-500" />
@@ -619,7 +619,7 @@ export default function ElectricCalc({
                     <label htmlFor="poolPump-range" className="text-xs font-semibold text-gray-600 dark:text-gray-350">Pool Filter Pump (Hours / Day)</label>
                     <span className="text-xs font-bold text-sky-500 bg-sky-50 dark:bg-sky-950/20 px-2 py-0.5 rounded">{poolPumpHours} hrs</span>
                   </div>
-                  <input
+                  <input suppressHydrationWarning={true}
                     id="poolPump-range"
                     type="range"
                     min="0"
@@ -629,7 +629,7 @@ export default function ElectricCalc({
                     onChange={(e) => handleInputChange("poolPumpHours", Number(e.target.value))}
                     className="w-full text-sky-500 cursor-pointer"
                   />
-                  <span className="text-[10px] text-gray-400 block mt-1">
+                  <span className="text-xs text-gray-400 block mt-1">
                     Typical pool pumps draw ~1.5 kW. 8 hours is standard for turnover.
                   </span>
                 </div>
@@ -640,7 +640,7 @@ export default function ElectricCalc({
                     <label htmlFor="poolHeater-range" className="text-xs font-semibold text-gray-600 dark:text-gray-350">Electric Heater Runtime (Hours / Day)</label>
                     <span className="text-xs font-bold text-sky-500 bg-sky-50 dark:bg-sky-950/20 px-2 py-0.5 rounded">{poolHeaterHours} hrs</span>
                   </div>
-                  <input
+                  <input suppressHydrationWarning={true}
                     id="poolHeater-range"
                     type="range"
                     min="0"
@@ -650,7 +650,7 @@ export default function ElectricCalc({
                     onChange={(e) => handleInputChange("poolHeaterHours", Number(e.target.value))}
                     className="w-full text-sky-500 cursor-pointer"
                   />
-                  <span className="text-[10px] text-gray-400 block mt-1">
+                  <span className="text-xs text-gray-400 block mt-1">
                     Typical electric pool heaters draw a massive ~5.0 kW when firing.
                   </span>
                 </div>
